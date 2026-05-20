@@ -2,8 +2,8 @@ pipeline {
     agent any
     parameters {
         choice(name: 'NUMBER',
-            choices: [10,20,30,40,50,60,70,80,90],
-            description: 'Select the value for F(n) for the Fibonnai sequence.')
+            choices: ['10','20','30','40','50','60','70','80','90'],
+            description: 'Select the value for F(n) for the Fibonacci sequence.')
     }
     options {
         buildDiscarder(logRotator(daysToKeepStr: '10', numToKeepStr: '10'))
@@ -14,26 +14,27 @@ pipeline {
         cron '@midnight'
     }
     stages {
-        steps {
-            sh 'chmod +x ./ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/fibonacci.sh'
-            // Your subsequent execution steps go here too
+        stage('Setup') {
+            steps {
+                sh 'chmod +x ./ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/fibonacci.sh'
+            }
         }
-    }
         stage('Relative path') {
             steps {
-                sh("./fibonacci.sh ${env.NUMBER}")
+                sh("./ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/fibonacci.sh ${env.NUMBER}")
             }
         }
         stage('Full path') {
             steps {
-                sh("${env.WORKSPACE}/fibonacci.sh ${env.NUMBER}")
+                sh("${env.WORKSPACE}/ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/fibonacci.sh ${env.NUMBER}")
             }
         }
         stage('Change directory') {
             steps {
-                dir("${env.WORKSPACE}/"){
+                dir("${env.WORKSPACE}/ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/"){
                     sh("./fibonacci.sh ${env.NUMBER}")
                 }
             }
         }
     }
+}
