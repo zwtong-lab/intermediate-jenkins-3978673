@@ -14,12 +14,11 @@ pipeline {
         cron '@midnight'
     }
     stages {
-        dir('ch2_version_control_systems/02_03_run_scripts_from_the_pipeline') 
-        {
-            sh 'chmod +x ./fibonacci.sh'
+        steps {
+            sh 'chmod +x ./ch2_version_control_systems/02_03_run_scripts_from_the_pipeline/fibonacci.sh'
             // Your subsequent execution steps go here too
         }
-        }
+    }
         stage('Relative path') {
             steps {
                 sh("./fibonacci.sh ${env.NUMBER}")
