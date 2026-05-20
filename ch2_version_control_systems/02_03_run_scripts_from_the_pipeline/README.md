@@ -83,6 +83,8 @@ The exercise files for this lesson include a [Jenkinsfile](./Jenkinsfile) and a 
 
     - Note the paths used for each call to the script.
     - For the `dir` step, note how the directory was changed, allowing the script to be called directly.
+  
+    - 
 
 <!-- FooterStart -->
 ---
