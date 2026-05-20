@@ -14,24 +14,25 @@ pipeline {
         cron '@midnight'
     }
     stages {
-        stage('Make executable') {
-            steps {
-                sh('chmod +x ./scripts/fibonacci.sh')
-            }
+        dir('ch2_version_control_systems/02_03_run_scripts_from_the_pipeline') 
+        {
+            sh 'chmod +x ./fibonacci.sh'
+            // Your subsequent execution steps go here too
+        }
         }
         stage('Relative path') {
             steps {
-                sh("./scripts/fibonacci.sh ${env.NUMBER}")
+                sh("./fibonacci.sh ${env.NUMBER}")
             }
         }
         stage('Full path') {
             steps {
-                sh("${env.WORKSPACE}/scripts/fibonacci.sh ${env.NUMBER}")
+                sh("${env.WORKSPACE}/fibonacci.sh ${env.NUMBER}")
             }
         }
         stage('Change directory') {
             steps {
-                dir("${env.WORKSPACE}/scripts"){
+                dir("${env.WORKSPACE}/"){
                     sh("./fibonacci.sh ${env.NUMBER}")
                 }
             }
